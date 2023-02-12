@@ -1,19 +1,22 @@
+
 {
-  "name": "y",
+  "name": "node-custom-framework",
   "version": "1.0.0",
-  "description": "nodejs server",
+  "description": "nodejs with express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"node --watch src"
+
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mortezaahmadiaf/nodejs-custom-framework.git"
-  },
+  "keywords": [
+    "node",
+    "express",
+    "server"
+  ],
   "author": "Morteza Ahmadi",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mortezaahmadiaf/nodejs-custom-framework/issues"
-  },
-  "homepage": "https://github.com/mortezaahmadiaf/nodejs-custom-framework#readme"
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
 }
