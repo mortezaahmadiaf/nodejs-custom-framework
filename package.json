@@ -1,0 +1,28 @@
+{
+  "name": "node-custom-framework",
+  "version": "1.0.0",
+  "description": "nodejs with express",
+  "main": "index.ts",
+  "scripts": {
+    "start": "nodemon ./src/index.ts",
+    "build": "tsc"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "server"
+  ],
+  "author": "Morteza Ahmadi",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.15.11",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.3"
+  }
+}
