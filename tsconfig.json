@@ -13,11 +13,11 @@
     "forceConsistentCasingInFileNames": true,
     "pretty": true,
     "outDir": "./dist",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
       "app/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/Feature/Middleware/index.js"],
   "exclude": ["node_modules", "src/__Test__/**"]
 }
