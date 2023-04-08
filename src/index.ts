@@ -1,3 +1,3 @@
-import { Application } from "./Configs/Application";
+import { Application } from "./Application";
 const Server = new Application();
 Server.runServer();
