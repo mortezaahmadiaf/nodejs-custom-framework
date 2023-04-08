@@ -15,4 +15,7 @@ export class TestController {
   findAll(req: Request, response: Response, next: NextFunction) {
     response.send("test getAll ");
   }
+  patch(req: Request, response: Response, next: NextFunction) {
+    response.send("test patch ");
+  }
 }
