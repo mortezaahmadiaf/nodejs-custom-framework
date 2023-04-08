@@ -15,6 +15,7 @@ export class BaseRouter {
       post: "/",
       put: "/",
       delete: "/",
+      patch: "/",
     };
 
     this.router
@@ -46,6 +47,12 @@ export class BaseRouter {
       .get((req: Request, res: Response, next: NextFunction) => {
         this.findOne(req, res, next);
       });
+
+    this.router
+      .route(urls.patch)
+      .patch((req: Request, res: Response, next: NextFunction) => {
+        this.patch(req, res, next);
+      });
   }
   private add(req: Request, res: Response, next: NextFunction) {
     this.controller.add(req, res, next);
@@ -61,5 +68,8 @@ export class BaseRouter {
   }
   private findAll(req: Request, res: Response, next: NextFunction) {
     this.controller.findAll(req, res, next);
+  }
+  private patch(req: Request, res: Response, next: NextFunction) {
+    this.controller.patch(req, res, next);
   }
 }
