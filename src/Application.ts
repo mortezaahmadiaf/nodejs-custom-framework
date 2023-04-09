@@ -1,6 +1,8 @@
 import express, { Express } from "express";
 import { TestRouter } from "./Router/v1";
 import { logger } from "./Feature/Middleware";
+import cors from "cors";
+import bodyParser from "body-parser";
 export class Application {
   private app: Express;
   private Port: number = 4000;
@@ -15,6 +17,9 @@ export class Application {
   };
 
   private mioddelware = () => {
+    this.app.use(cors());
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(logger);
   };
   runServer = () => {
