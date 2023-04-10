@@ -25,7 +25,7 @@ export class TestController {
   }
   findOne(req: Request, response: Response, next: NextFunction) {
     ResponseHandler(response, {
-      statusCode: "BadRequest",
+      statusCode: "OK",
       payload: { data: "Test Get By Id Api" },
     });
   }
@@ -42,9 +42,26 @@ export class TestController {
     });
   }
   generateJWT(req: Request, response: Response, next: NextFunction) {
-    response.send("test patch ");
+    const token = jwtGenerator({ message: "hello world!" });
+
+    ResponseHandler(response, {
+      statusCode: "OK",
+      payload: {
+        data: {
+          token,
+          message:
+            "send token to jwt-decorate with token in body with post method",
+        },
+      },
+    });
   }
   decorateJWT(req: Request, response: Response, next: NextFunction) {
-    response.send("test patch ");
+    const data = jwtDecorator(req.body.token);
+    ResponseHandler(response, {
+      statusCode: "OK",
+      payload: {
+        data,
+      },
+    });
   }
 }
