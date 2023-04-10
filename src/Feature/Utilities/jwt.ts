@@ -1,7 +1,7 @@
 import jsonwebtoken from "jsonwebtoken";
 export const jwtGenerator = (props: any): string => {
   const jwtToken = jsonwebtoken.sign(props, process.env.JWT_SECRET_KEY ?? "", {
-    algorithm: "RS256",
+    algorithm: "HS256",
     expiresIn: 60 * 60 * 60,
   });
   return jwtToken;
