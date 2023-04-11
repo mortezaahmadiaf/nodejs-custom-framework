@@ -1,5 +1,5 @@
 import { Request, Response, Router, NextFunction } from "express";
-
+import { AccessPolicy } from "../Policy";
 export class BaseRouter {
   router: Router;
   controller: any;
@@ -8,7 +8,7 @@ export class BaseRouter {
     this.router = Router();
   }
 
-  init() {
+  init(accessPolicy: AccessPolicy = new AccessPolicy()) {
     let urls = {
       get: "/",
       getById: "/id/:id",
@@ -20,39 +20,57 @@ export class BaseRouter {
 
     this.router
       .route(urls.post)
-      .post((req: Request, res: Response, next: NextFunction) => {
-        this.add(req, res, next);
-      });
+      .post(
+        accessPolicy.post,
+        (req: Request, res: Response, next: NextFunction) => {
+          this.add(req, res, next);
+        }
+      );
 
     this.router
       .route(urls.put)
-      .put((req: Request, res: Response, next: NextFunction) => {
-        this.update(req, res, next);
-      });
+      .put(
+        accessPolicy.put,
+        (req: Request, res: Response, next: NextFunction) => {
+          this.update(req, res, next);
+        }
+      );
 
     this.router
       .route(urls.delete)
-      .delete((req: Request, res: Response, next: NextFunction) => {
-        this.delete(req, res, next);
-      });
+      .delete(
+        accessPolicy.delete,
+        (req: Request, res: Response, next: NextFunction) => {
+          this.delete(req, res, next);
+        }
+      );
 
     this.router
       .route(urls.get)
-      .get((req: Request, res: Response, next: NextFunction) => {
-        this.findAll(req, res, next);
-      });
+      .get(
+        accessPolicy.get,
+        (req: Request, res: Response, next: NextFunction) => {
+          this.findAll(req, res, next);
+        }
+      );
 
     this.router
       .route(urls.getById)
-      .get((req: Request, res: Response, next: NextFunction) => {
-        this.findOne(req, res, next);
-      });
+      .get(
+        accessPolicy.getById,
+        (req: Request, res: Response, next: NextFunction) => {
+          this.findOne(req, res, next);
+        }
+      );
 
     this.router
       .route(urls.patch)
-      .patch((req: Request, res: Response, next: NextFunction) => {
-        this.patch(req, res, next);
-      });
+      .patch(
+        accessPolicy.patch,
+        (req: Request, res: Response, next: NextFunction) => {
+          this.patch(req, res, next);
+        }
+      );
   }
   private add(req: Request, res: Response, next: NextFunction) {
     this.controller.add(req, res, next);
