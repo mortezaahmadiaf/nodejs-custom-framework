@@ -4,6 +4,8 @@ import { logger } from "./Feature/Middleware";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import { Mysql } from "./Feature/DB-Connections";
+import { User } from "./Models/User-Model/user-schema";
 dotenv.config();
 export class Application {
   private app: Express;
@@ -11,11 +13,23 @@ export class Application {
 
   constructor() {
     this.app = express();
+    this.database_connection();
     this.mioddelware();
     this.router();
   }
   private router = () => {
     this.app.use("/test", TestRouter);
+  };
+
+  private database_connection = async () => {
+    try {
+      await Mysql.authenticate();
+      console.log("mysql : Connection has been established successfully.");
+
+      // User.create({ name: "morteza1", preferredName: "test1" });
+    } catch (error) {
+      console.error("mysql : Unable to connect to the database:", error);
+    }
   };
 
   private mioddelware = () => {
