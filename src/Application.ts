@@ -3,6 +3,8 @@ import { TestRouter } from "./Router/v1";
 import { logger } from "./Feature/Middleware";
 import cors from "cors";
 import bodyParser from "body-parser";
+import dotenv from "dotenv";
+dotenv.config();
 export class Application {
   private app: Express;
   private Port: number = 4000;
