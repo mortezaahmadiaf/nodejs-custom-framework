@@ -1,10 +1,10 @@
 import express, { Express } from "express";
-import { TestRouter, UserRouter, ProfileRouter } from "./Router/v1";
-import { logger } from "./Feature/Middleware";
+import { TestRouter, UserRouter, ProfileRouter } from "./Routers/v1";
+import { logger } from "./Features/Middlewares";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import { Mysql } from "./Feature/DB-Connections";
+import { Mysql } from "./Features/DB-Connections";
 import { User } from "./Models/User-Model/user-schema";
 dotenv.config();
 export class Application {
