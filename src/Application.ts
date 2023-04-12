@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-import { TestRouter } from "./Router/v1";
+import { TestRouter, UserRouter, ProfileRouter } from "./Router/v1";
 import { logger } from "./Feature/Middleware";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -19,14 +19,14 @@ export class Application {
   }
   private router = () => {
     this.app.use("/test", TestRouter);
+    this.app.use("/user", UserRouter);
+    this.app.use("/profile", ProfileRouter);
   };
 
   private database_connection = async () => {
     try {
       await Mysql.authenticate();
       console.log("mysql : Connection has been established successfully.");
-
-      // User.create({ name: "morteza1", preferredName: "test1" });
     } catch (error) {
       console.error("mysql : Unable to connect to the database:", error);
     }
