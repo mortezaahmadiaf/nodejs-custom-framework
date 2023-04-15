@@ -50,7 +50,7 @@ export class TestController {
         data: {
           token,
           message:
-            "send token to jwt-decorate with token in body with post method",
+            "send token to test/jwt-decorate with token in body with post method or in header with jwt key to /test/check-jwt",
         },
       },
     });
@@ -62,6 +62,13 @@ export class TestController {
       payload: {
         data,
       },
+    });
+  }
+  checkJWT(req: Request, response: Response, next: NextFunction) {
+    const data = jwtDecorator(req.body.token);
+    ResponseHandler(response, {
+      statusCode: "OK",
+      payload: { data, message: "your Token work good" },
     });
   }
 }

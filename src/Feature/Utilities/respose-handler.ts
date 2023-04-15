@@ -19,7 +19,7 @@ export interface IResponse {
     | IClientErrors
     | IInformationalResponses
     | IServerErrors;
-  payload?: null | IPayload;
+  payload?: null | any | IPayload;
   error?: null | IError;
 }
 export interface IResponseHandler extends IResponse {

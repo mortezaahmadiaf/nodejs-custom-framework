@@ -11,7 +11,6 @@ class TestRoutes extends BaseRouter {
 
   init() {
     let accessPolicy = new AccessPolicy();
-    accessPolicy.get = authJwt;
     super.init(accessPolicy);
     this.router
       .route("/jwt-generate")
@@ -23,6 +22,12 @@ class TestRoutes extends BaseRouter {
       .post((req: Request, res: Response, next: NextFunction) => {
         this.decorateJWT(req, res, next);
       });
+
+    this.router
+      .route("/jwt-check")
+      .get(authJwt, (req: Request, res: Response, next: NextFunction) => {
+        this.checkJWT(req, res, next);
+      });
   }
 
   private generateJWT = (req: Request, res: Response, next: NextFunction) => {
@@ -30,6 +35,10 @@ class TestRoutes extends BaseRouter {
   };
   private decorateJWT = (req: Request, res: Response, next: NextFunction) => {
     this.controller.decorateJWT(req, res, next);
+  };
+
+  private checkJWT = (req: Request, res: Response, next: NextFunction) => {
+    this.controller.checkJWT(req, res, next);
   };
 }
 
