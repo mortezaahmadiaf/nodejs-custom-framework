@@ -1,5 +1,5 @@
 import { Request, Response, Router, NextFunction } from "express";
-import { AccessPolicy } from "../Policys";
+import { AccessPolicy } from "../Policies";
 export class BaseRouter {
   router: Router;
   controller: any;
