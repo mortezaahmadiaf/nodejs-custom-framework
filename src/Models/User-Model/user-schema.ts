@@ -6,6 +6,7 @@ import type {
   CreationOptional,
 } from "@sequelize/core";
 import { Model } from "@sequelize/core";
+import { Profile } from "../Profile-Model/profile-schema";
 
 class User extends Model<
   InferAttributes<User, {}>,
@@ -79,6 +80,9 @@ User.init(
     sequelize: Mysql, // passing the `sequelize` instance is required
   }
 );
+
+Profile.belongsTo(User, { as: "profile", foreignKey: "userId" });
+
 // User.sync({ force: true }).then(() => console.log("User table created"));
 
 export interface IUser {

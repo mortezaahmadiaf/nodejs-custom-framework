@@ -9,7 +9,7 @@ import { User } from "./Models/User-Model/user-schema";
 dotenv.config();
 export class Application {
   private app: Express;
-  private Port: number = 4000;
+  private Port: number = 4001;
 
   constructor() {
     this.app = express();

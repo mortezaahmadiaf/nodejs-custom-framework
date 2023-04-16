@@ -39,8 +39,9 @@ export class UserController {
     } catch (error) {}
   }
   async findOne(req: Request, response: Response, next: NextFunction) {
+    const id = req.params.id;
     try {
-      const res = await this.userManager.getById();
+      const res = await this.userManager.getById(id);
       ResponseHandler(response, {
         statusCode: "OK",
         payload: { data: res },

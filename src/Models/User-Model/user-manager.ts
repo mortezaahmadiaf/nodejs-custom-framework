@@ -19,7 +19,14 @@ export class UserManager {
   };
   update = async () => {};
   delete = async () => {};
-  getById = async () => {};
+  getById = async (id: string) => {
+    try {
+      const result = await this.userModel.getById(id);
+      return result;
+    } catch (error) {
+      throw new Error(error as any); // return error;
+    }
+  };
   getAll = async () => {};
   patch = async () => {};
 }
