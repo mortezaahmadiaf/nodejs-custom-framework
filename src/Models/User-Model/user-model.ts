@@ -17,7 +17,7 @@ export class UserModel {
     try {
       const result = await this.user.findOne({
         where: { id },
-        // include: [{ model: Profile }],
+        include: [{ model: Profile }],
       });
       console.log({ id, result });
       return result;

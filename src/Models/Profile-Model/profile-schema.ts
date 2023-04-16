@@ -79,7 +79,7 @@ Profile.init(
 // Profile.sync({ force: true }).then(() =>
 //   console.log("users-profile table created")
 // );
-// Profile.belongsTo(User, { as: "profile", foreignKey: "userId" });
+// Profile.belongsTo(User, { foreignKey: "userId" });
 
 export interface IProfile {
   UserId: string;

@@ -80,8 +80,12 @@ User.init(
     sequelize: Mysql, // passing the `sequelize` instance is required
   }
 );
+User.hasOne(Profile, {
+  foreignKey: "userId",
+  as: "profile",
+});
 
-Profile.belongsTo(User, { as: "profile", foreignKey: "userId" });
+// User.hasOne(User, { as: "profile" });
 
 // User.sync({ force: true }).then(() => console.log("User table created"));
 
