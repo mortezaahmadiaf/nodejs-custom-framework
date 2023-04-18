@@ -1,12 +1,18 @@
 import { UserModel } from "./user-model";
 import { IUser, IUpdateUser } from "../schemas";
 import { genRandomString, encription } from "../../Features/Utilities";
+import { UserValidator } from "../../Features/Validations";
+import { validateOrReject } from "class-validator";
 export class UserManager {
   private userModel: UserModel = new UserModel();
   create = async (props: IUser) => {
-    const salt = genRandomString();
-    const hashPass = encription(props.password, salt);
+    const user = new UserValidator();
+    user.password = props.password;
+    user.username = props.username;
     try {
+      const valid = await validateOrReject(user);
+      const salt = genRandomString();
+      const hashPass = encription(props.password, salt);
       const result = await this.userModel.create({
         ...props,
         password: hashPass,
@@ -14,7 +20,7 @@ export class UserManager {
       });
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error;
     }
   };
   update = async (props: IUpdateUser) => {
@@ -22,7 +28,7 @@ export class UserManager {
       const result = await this.userModel.update(props);
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   delete = async (id: string) => {
@@ -30,7 +36,7 @@ export class UserManager {
       const result = await this.userModel.delete(id);
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   getById = async (id: string) => {
@@ -38,7 +44,7 @@ export class UserManager {
       const result = await this.userModel.getById(id);
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   getAll = async () => {
@@ -46,7 +52,7 @@ export class UserManager {
       const result = await this.userModel.getAll();
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   patch = async () => {};

@@ -7,7 +7,7 @@ export class ProfileManager {
       const result = await this.profileModel.create(props);
       return result;
     } catch (error: any) {
-      throw error?.errors ?? error; // return error;
+      throw error; // return error;
     }
   };
   update = async (props: IUpdateProfile) => {
@@ -15,7 +15,7 @@ export class ProfileManager {
       const result = await this.profileModel.update(props);
       return result;
     } catch (error: any) {
-      throw error?.errors ?? error; // return error;
+      throw error; // return error;
     }
   };
   delete = async (id: string) => {
@@ -23,7 +23,7 @@ export class ProfileManager {
       const result = await this.profileModel.delete(id);
       return result;
     } catch (error: any) {
-      throw error?.errors ?? error; // return error;
+      throw error; // return error;
     }
   };
   getById = async (id: string) => {
@@ -31,7 +31,7 @@ export class ProfileManager {
       const result = await this.profileModel.getById(id);
       return result;
     } catch (error: any) {
-      throw error?.errors ?? error; // return error;
+      throw error; // return error;
     }
   };
   getAll = async () => {
@@ -39,7 +39,7 @@ export class ProfileManager {
       const result = await this.profileModel.getAll();
       return result;
     } catch (error: any) {
-      throw error?.errors ?? error; // return error;
+      throw error; // return error;
     }
   };
   patch = async () => {
@@ -47,7 +47,7 @@ export class ProfileManager {
       const result = await this.profileModel.patch();
       return result;
     } catch (error: any) {
-      throw error?.errors ?? error; // return error;
+      throw error; // return error;
     }
   };
 }
