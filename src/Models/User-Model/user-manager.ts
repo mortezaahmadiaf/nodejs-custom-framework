@@ -14,7 +14,7 @@ export class UserManager {
       });
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error;
     }
   };
   update = async (props: IUpdateUser) => {
@@ -22,7 +22,7 @@ export class UserManager {
       const result = await this.userModel.update(props);
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   delete = async (id: string) => {
@@ -30,7 +30,7 @@ export class UserManager {
       const result = await this.userModel.delete(id);
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   getById = async (id: string) => {
@@ -38,7 +38,7 @@ export class UserManager {
       const result = await this.userModel.getById(id);
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   getAll = async () => {
@@ -46,7 +46,7 @@ export class UserManager {
       const result = await this.userModel.getAll();
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   patch = async () => {};
