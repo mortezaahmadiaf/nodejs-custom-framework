@@ -7,7 +7,7 @@ export class UserModel {
       const result = await this.user.create(props);
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   update = async (props: IUpdateUser) => {
@@ -25,7 +25,7 @@ export class UserModel {
       const result = await this.user.destroy({ where: { id } });
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   getById = async (id: string) => {
@@ -36,7 +36,7 @@ export class UserModel {
       });
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   getAll = async () => {
@@ -44,7 +44,7 @@ export class UserModel {
       const result = await this.user.findAll({ include: [{ model: Profile }] });
       return result;
     } catch (error) {
-      throw new Error(error as any); // return error;
+      throw error; // return error;
     }
   };
   patch = async () => {};
