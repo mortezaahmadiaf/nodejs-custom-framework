@@ -1,12 +1,18 @@
 import { UserModel } from "./user-model";
 import { IUser, IUpdateUser } from "../schemas";
 import { genRandomString, encription } from "../../Features/Utilities";
+import { UserValidator } from "../../Features/Validations";
+import { validateOrReject } from "class-validator";
 export class UserManager {
   private userModel: UserModel = new UserModel();
   create = async (props: IUser) => {
-    const salt = genRandomString();
-    const hashPass = encription(props.password, salt);
+    const user = new UserValidator();
+    user.password = props.password;
+    user.username = props.username;
     try {
+      const valid = await validateOrReject(user);
+      const salt = genRandomString();
+      const hashPass = encription(props.password, salt);
       const result = await this.userModel.create({
         ...props,
         password: hashPass,
