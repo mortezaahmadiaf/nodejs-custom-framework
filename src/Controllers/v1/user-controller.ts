@@ -13,7 +13,8 @@ export class UserController extends BasicController {
         statusCode: "Created",
         payload: { data: res },
       });
-    } catch (errors) {
+    } catch (errors: any) {
+      console.log({ errors });
       this.Response(response, {
         statusCode: "BadRequest",
         error: { errors },
