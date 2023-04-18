@@ -6,13 +6,12 @@ import { AccessPolicy } from "../../Features/Policies";
 class ProfileRoute extends BaseRouter {
   constructor() {
     super(ProfileController);
+    this.accessPolicy.get = authJwt;
     this.init();
   }
 
   init() {
-    let accessPolicy = new AccessPolicy();
-    accessPolicy.get = authJwt;
-    super.init(accessPolicy);
+    super.init();
   }
 }
 

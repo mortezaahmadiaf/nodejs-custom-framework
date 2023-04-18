@@ -1,69 +1,94 @@
 import { Response, Request, NextFunction } from "express";
-import { ResponseHandler } from "../../Features/Utilities";
+import { BasicController } from "../../Features/Utilities";
 import { UserManager } from "../../Models";
 import { IUser } from "../../Models/schemas";
-export class UserController {
+export class UserController extends BasicController {
   private userManager: UserManager = new UserManager();
 
   async add(req: Request, response: Response, next: NextFunction) {
     const data: IUser = req.body;
     try {
       const res = await this.userManager.create(data);
-      ResponseHandler(response, {
+      this.Response(response, {
         statusCode: "Created",
         payload: { data: res },
       });
-    } catch (error) {
-      ResponseHandler(response, {
+    } catch (errors) {
+      this.Response(response, {
         statusCode: "BadRequest",
-        payload: { data: error },
+        error: { errors },
       });
     }
   }
   async update(req: Request, response: Response, next: NextFunction) {
     try {
       const res = await this.userManager.update();
-      ResponseHandler(response, {
+      this.Response(response, {
         statusCode: "OK",
         payload: { data: res },
       });
-    } catch (error) {}
+    } catch (errors) {
+      this.Response(response, {
+        statusCode: "BadRequest",
+        error: { errors },
+      });
+    }
   }
   async delete(req: Request, response: Response, next: NextFunction) {
     try {
       const res = await this.userManager.delete();
-      ResponseHandler(response, {
+      this.Response(response, {
         statusCode: "OK",
         payload: { data: res },
       });
-    } catch (error) {}
+    } catch (errors) {
+      this.Response(response, {
+        statusCode: "BadRequest",
+        error: { errors },
+      });
+    }
   }
   async findOne(req: Request, response: Response, next: NextFunction) {
     const id = req.params.id;
     try {
       const res = await this.userManager.getById(id);
-      ResponseHandler(response, {
+      this.Response(response, {
         statusCode: "OK",
         payload: { data: res },
       });
-    } catch (error) {}
+    } catch (errors) {
+      this.Response(response, {
+        statusCode: "BadRequest",
+        error: { errors },
+      });
+    }
   }
   async findAll(req: Request, response: Response, next: NextFunction) {
     try {
       const res = await this.userManager.getAll();
-      ResponseHandler(response, {
+      this.Response(response, {
         statusCode: "OK",
         payload: { data: res },
       });
-    } catch (error) {}
+    } catch (errors) {
+      this.Response(response, {
+        statusCode: "BadRequest",
+        error: { errors },
+      });
+    }
   }
   async patch(req: Request, response: Response, next: NextFunction) {
     try {
       const res = await this.userManager.patch();
-      ResponseHandler(response, {
+      this.Response(response, {
         statusCode: "OK",
         payload: { data: res },
       });
-    } catch (error) {}
+    } catch (errors) {
+      this.Response(response, {
+        statusCode: "BadRequest",
+        error: { errors },
+      });
+    }
   }
 }

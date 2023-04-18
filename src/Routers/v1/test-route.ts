@@ -6,13 +6,12 @@ import { AccessPolicy } from "../../Features/Policies";
 class TestRoutes extends BaseRouter {
   constructor() {
     super(TestController);
+    this.accessPolicy.get = authJwt;
     this.init();
   }
 
   init() {
-    let accessPolicy = new AccessPolicy();
-    accessPolicy.get = authJwt;
-    super.init(accessPolicy);
+    super.init();
     this.router
       .route("/jwt-generate")
       .get((req: Request, res: Response, next: NextFunction) => {
