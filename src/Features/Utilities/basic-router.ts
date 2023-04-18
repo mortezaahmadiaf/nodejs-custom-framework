@@ -1,14 +1,17 @@
 import { Request, Response, Router, NextFunction } from "express";
-import { AccessPolicy } from "../Policy";
+import { AccessPolicy } from "../Policies";
 export class BaseRouter {
   router: Router;
   controller: any;
+  accessPolicy: AccessPolicy = new AccessPolicy();
   constructor(controller: any) {
     this.controller = new controller();
     this.router = Router();
+
+    this.init();
   }
 
-  init(accessPolicy: AccessPolicy = new AccessPolicy()) {
+  init() {
     let urls = {
       get: "/",
       getById: "/id/:id",
@@ -21,7 +24,7 @@ export class BaseRouter {
     this.router
       .route(urls.post)
       .post(
-        accessPolicy.post,
+        this.accessPolicy.post,
         (req: Request, res: Response, next: NextFunction) => {
           this.add(req, res, next);
         }
@@ -30,7 +33,7 @@ export class BaseRouter {
     this.router
       .route(urls.put)
       .put(
-        accessPolicy.put,
+        this.accessPolicy.put,
         (req: Request, res: Response, next: NextFunction) => {
           this.update(req, res, next);
         }
@@ -39,7 +42,7 @@ export class BaseRouter {
     this.router
       .route(urls.delete)
       .delete(
-        accessPolicy.delete,
+        this.accessPolicy.delete,
         (req: Request, res: Response, next: NextFunction) => {
           this.delete(req, res, next);
         }
@@ -48,7 +51,7 @@ export class BaseRouter {
     this.router
       .route(urls.get)
       .get(
-        accessPolicy.get,
+        this.accessPolicy.get,
         (req: Request, res: Response, next: NextFunction) => {
           this.findAll(req, res, next);
         }
@@ -57,7 +60,7 @@ export class BaseRouter {
     this.router
       .route(urls.getById)
       .get(
-        accessPolicy.getById,
+        this.accessPolicy.getById,
         (req: Request, res: Response, next: NextFunction) => {
           this.findOne(req, res, next);
         }
@@ -66,7 +69,7 @@ export class BaseRouter {
     this.router
       .route(urls.patch)
       .patch(
-        accessPolicy.patch,
+        this.accessPolicy.patch,
         (req: Request, res: Response, next: NextFunction) => {
           this.patch(req, res, next);
         }
