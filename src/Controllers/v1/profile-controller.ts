@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { BasicController } from "../../Features/Utilities";
 import { ProfileManager } from "../../Models";
-import { IProfile } from "../../Models/schemas";
+import { IProfile, IUpdateProfile } from "../../Models/schemas";
 export class ProfileController extends BasicController {
   private profileManager: ProfileManager = new ProfileManager();
 
@@ -21,7 +21,7 @@ export class ProfileController extends BasicController {
     }
   }
   async update(req: Request, response: Response, next: NextFunction) {
-    const data: IProfile = req.body;
+    const data: IUpdateProfile = req.body;
 
     try {
       const res = await this.profileManager.update(data);

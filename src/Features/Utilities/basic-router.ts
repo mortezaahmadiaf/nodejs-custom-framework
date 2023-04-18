@@ -53,7 +53,6 @@ export class BaseRouter {
       .get(
         this.accessPolicy.get,
         (req: Request, res: Response, next: NextFunction) => {
-          console.log("tetstttttt");
           this.findAll(req, res, next);
         }
       );

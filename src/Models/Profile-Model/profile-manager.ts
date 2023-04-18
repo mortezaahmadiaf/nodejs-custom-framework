@@ -1,23 +1,53 @@
 import { ProfileModel } from "./profile-model";
-import { IProfile } from "../schemas";
+import { IProfile, IUpdateProfile } from "../schemas";
 export class ProfileManager {
   private profileModel: ProfileModel = new ProfileModel();
-  create = (props: IProfile) => {
-    return this.profileModel.create(props);
+  create = async (props: IProfile) => {
+    try {
+      const result = await this.profileModel.create(props);
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
   };
-  update = (props: IProfile) => {
-    return this.profileModel.update(props);
+  update = async (props: IUpdateProfile) => {
+    try {
+      const result = await this.profileModel.update(props);
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
   };
-  delete = (id: string) => {
-    return this.profileModel.delete(id);
+  delete = async (id: string) => {
+    try {
+      const result = await this.profileModel.delete(id);
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
   };
-  getById = (id: string) => {
-    return this.profileModel.getById();
+  getById = async (id: string) => {
+    try {
+      const result = await this.profileModel.getById(id);
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
   };
-  getAll = () => {
-    return this.profileModel.getAll();
+  getAll = async () => {
+    try {
+      const result = await this.profileModel.getAll();
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
   };
-  patch = () => {
-    return this.profileModel.patch();
+  patch = async () => {
+    try {
+      const result = await this.profileModel.patch();
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
   };
 }

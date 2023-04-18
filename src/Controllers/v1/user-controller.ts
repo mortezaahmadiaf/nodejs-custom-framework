@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { BasicController } from "../../Features/Utilities";
 import { UserManager } from "../../Models";
-import { IUser } from "../../Models/schemas";
+import { IUser, IUpdateUser } from "../../Models/schemas";
 export class UserController extends BasicController {
   private userManager: UserManager = new UserManager();
 
@@ -21,8 +21,9 @@ export class UserController extends BasicController {
     }
   }
   async update(req: Request, response: Response, next: NextFunction) {
+    const data: IUpdateUser = req.body;
     try {
-      const res = await this.userManager.update();
+      const res = await this.userManager.update(data);
       this.Response(response, {
         statusCode: "OK",
         payload: { data: res },
@@ -35,8 +36,9 @@ export class UserController extends BasicController {
     }
   }
   async delete(req: Request, response: Response, next: NextFunction) {
+    const { id }: { id: string } = req.body;
     try {
-      const res = await this.userManager.delete();
+      const res = await this.userManager.delete(id);
       this.Response(response, {
         statusCode: "OK",
         payload: { data: res },
