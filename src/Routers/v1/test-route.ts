@@ -1,18 +1,17 @@
-import { BaseRouter } from "../../Feature/Utilities";
-import { TestController } from "../../Controller/v1";
+import { BaseRouter } from "../../Features/Utilities";
+import { TestController } from "../../Controllers/v1";
 import { NextFunction, Response, Request } from "express";
-import { authJwt } from "../../Feature/Middleware";
-import { AccessPolicy } from "../../Feature/Policy";
+import { authJwt } from "../../Features/Middlewares";
+import { AccessPolicy } from "../../Features/Policies";
 class TestRoutes extends BaseRouter {
   constructor() {
     super(TestController);
+    this.accessPolicy.get = authJwt;
     this.init();
   }
 
   init() {
-    let accessPolicy = new AccessPolicy();
-    accessPolicy.get = authJwt;
-    super.init(accessPolicy);
+    super.init();
     this.router
       .route("/jwt-generate")
       .get((req: Request, res: Response, next: NextFunction) => {

@@ -18,6 +18,6 @@
       "app/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/Feature/Middleware/index.js"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "src/__Test__/**"]
 }

@@ -1,8 +1,53 @@
-class ProfileManager {
-  create = async () => {};
-  update = async () => {};
-  delete = async () => {};
-  getById = async () => {};
-  getAll = async () => {};
-  patch = async () => {};
+import { ProfileModel } from "./profile-model";
+import { IProfile, IUpdateProfile } from "../schemas";
+export class ProfileManager {
+  private profileModel: ProfileModel = new ProfileModel();
+  create = async (props: IProfile) => {
+    try {
+      const result = await this.profileModel.create(props);
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
+  };
+  update = async (props: IUpdateProfile) => {
+    try {
+      const result = await this.profileModel.update(props);
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
+  };
+  delete = async (id: string) => {
+    try {
+      const result = await this.profileModel.delete(id);
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
+  };
+  getById = async (id: string) => {
+    try {
+      const result = await this.profileModel.getById(id);
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
+  };
+  getAll = async () => {
+    try {
+      const result = await this.profileModel.getAll();
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
+  };
+  patch = async () => {
+    try {
+      const result = await this.profileModel.patch();
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
+  };
 }

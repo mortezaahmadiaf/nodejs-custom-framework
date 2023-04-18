@@ -1,37 +1,51 @@
-import type {
-  InferAttributes,
-  InferCreationAttributes,
-  CreationOptional,
-  NonAttribute,
-} from "@sequelize/core";
-import { Model } from "@sequelize/core";
-
-export class User extends Model<
-  InferAttributes<User, {}>,
-  InferCreationAttributes<User, {}>
-> {
-  // id can be undefined during creation when using `autoIncrement`
-  declare id: CreationOptional<string>;
-  declare name: string;
-  declare preferredName: string | null; // for nullable fields
-
-  // timestamps!
-  // createdAt can be undefined during creation
-  declare createdAt: CreationOptional<Date>;
-  // updatedAt can be undefined during creation
-  declare updatedAt: CreationOptional<Date>;
-
-  // Since TS cannot determine model association at compile time
-  // we have to declare them here purely virtually
-  // these will not exist until `Model.init` was called.
-
-  // You can also pre-declare possible inclusions, these will only be populated if you
-  // actively include a relation.
-  // Note this is optional since it's only populated when explicitly requested in code
-
-  // getters that are not attributes should be tagged using NonAttribute
-  // to remove them from the model's Attribute Typings.
-  get fullName(): NonAttribute<string> {
-    return this.name;
-  }
+import { User, ISaltUser, IUpdateUser } from "./user-schema";
+import { Profile } from "../Profile-Model/profile-schema";
+export class UserModel {
+  user = User;
+  create = async (props: ISaltUser) => {
+    try {
+      const result = await this.user.create(props);
+      return result;
+    } catch (error) {
+      throw new Error(error as any); // return error;
+    }
+  };
+  update = async (props: IUpdateUser) => {
+    try {
+      const result = await this.user.update(props, {
+        where: { id: props.id },
+      });
+      return result;
+    } catch (error: any) {
+      throw error?.errors ?? error; // return error;
+    }
+  };
+  delete = async (id: string) => {
+    try {
+      const result = await this.user.destroy({ where: { id } });
+      return result;
+    } catch (error) {
+      throw new Error(error as any); // return error;
+    }
+  };
+  getById = async (id: string) => {
+    try {
+      const result = await this.user.findOne({
+        where: { id },
+        include: [{ model: Profile }],
+      });
+      return result;
+    } catch (error) {
+      throw new Error(error as any); // return error;
+    }
+  };
+  getAll = async () => {
+    try {
+      const result = await this.user.findAll({ include: [{ model: Profile }] });
+      return result;
+    } catch (error) {
+      throw new Error(error as any); // return error;
+    }
+  };
+  patch = async () => {};
 }

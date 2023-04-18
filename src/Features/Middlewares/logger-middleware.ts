@@ -15,7 +15,7 @@ export const logger = (
       `\n Response ===> Method: ${request.method} ___ Route: ${
         request.originalUrl
       } ___ Status Code: ${
-        response.statusCode === 200
+        response.statusCode >= 200 || response.statusCode < 300
           ? chalk.green(response.statusCode)
           : chalk.red(response.statusCode)
       } ___ Request Time: ${elepsTime}ms \n`
