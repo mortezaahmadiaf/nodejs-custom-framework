@@ -11,7 +11,8 @@ export interface IPayload {
   data?: any;
 }
 export interface IError {
-  message?: string | Array<string>;
+  errorMessage?: string | Array<string>;
+  errors?: any;
 }
 export interface IResponse {
   statusCode:
