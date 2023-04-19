@@ -1,6 +1,6 @@
-import { BaseRouter } from "../../Features/Utilities";
+import { BaseRoutes } from "../../Features/Utilities";
 import { UserController } from "../../Controllers/v1";
-class UserRoute extends BaseRouter {
+class UserRoute extends BaseRoutes {
   constructor() {
     super(UserController);
     this.init();

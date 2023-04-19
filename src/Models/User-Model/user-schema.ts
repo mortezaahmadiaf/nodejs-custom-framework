@@ -111,6 +111,8 @@ export interface IUpdateUserPasswodSalt {
 export interface IUpdateUser {
   username: string;
   id: string;
+  password: string;
+  salt?: string;
 }
 
 export { User };
