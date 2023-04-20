@@ -1,14 +1,10 @@
 import { UserModel } from "./user-model";
 import { IUser, IUpdateUser } from "../schemas";
 import { genRandomString, encription } from "../../Features/Utilities";
-import { UserValidation } from "../../Features/Validations";
 export class UserManager {
   private userModel: UserModel = new UserModel();
-  private validation: UserValidation = new UserValidation();
   create = async (props: IUser) => {
     try {
-      await this.validation.create(props);
-
       const salt = genRandomString();
       const hashPass = encription(props.password, salt);
       const result = await this.userModel.create({
@@ -23,7 +19,6 @@ export class UserManager {
   };
   update = async (props: IUpdateUser) => {
     try {
-      await this.validation.update(props);
       const salt = genRandomString();
       const hashPass = encription(props.password, salt);
 
@@ -39,7 +34,7 @@ export class UserManager {
   };
   delete = async (id: string) => {
     try {
-      await this.validation.idValidator(id);
+      // await this.validation.idValidator(id);
       const result = await this.userModel.delete(id);
       return result;
     } catch (error) {
@@ -48,7 +43,7 @@ export class UserManager {
   };
   getById = async (id: string) => {
     try {
-      await this.validation.idValidator(id);
+      // await this.validation.idValidator(id);
       const result = await this.userModel.getById(id);
       return result;
     } catch (error) {
