@@ -16,8 +16,6 @@ export const authJwt = async (
       statusCode: "Unauthorized",
       error: { errorMessage: "Unauthorized User" },
     });
-  // sendError({ response, status: 401, message: { error: 'access denied', errorMsg: 'first send get request to /test/jwt when recive token put it in header with keyname jwt and send request' } });
-  // if token exist
   else
     try {
       // check decript jwt by JWT_TOKEN_SECURE_STRING
