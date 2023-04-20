@@ -6,7 +6,6 @@ import { AccessPolicy } from "../../Features/Policies";
 class ProfileRoute extends BaseRoutes {
   constructor() {
     super(ProfileController);
-    this.accessPolicy.get = authJwt;
     this.init();
   }
 
