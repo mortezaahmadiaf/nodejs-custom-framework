@@ -1,5 +1,5 @@
 import { BaseRoutes } from "../../Features/Utilities";
-import { TestController } from "../../Controllers/v1";
+import { TestController } from "../../Controllers";
 import { NextFunction, Response, Request } from "express";
 import { authJwt } from "../../Features/Middlewares";
 

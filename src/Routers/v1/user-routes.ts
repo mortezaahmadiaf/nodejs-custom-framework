@@ -1,5 +1,5 @@
 import { BaseRoutes } from "../../Features/Utilities";
-import { UserController } from "../../Controllers/v1";
+import { UserController } from "../../Controllers";
 class UserRoute extends BaseRoutes {
   constructor() {
     super(UserController);
