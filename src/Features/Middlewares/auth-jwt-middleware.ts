@@ -2,7 +2,7 @@ import * as jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 import { ResponseHandler, jwtDecorator } from "../Utilities";
 // a middleware to check jsonwebtoken
-export const authJwt = (
+export const authJwt = async (
   request: any,
   response: Response,
   Next: NextFunction
@@ -21,7 +21,7 @@ export const authJwt = (
   else
     try {
       // check decript jwt by JWT_TOKEN_SECURE_STRING
-      const verified = jwtDecorator(jwtToken);
+      const verified = await jwtDecorator(jwtToken);
       //if   decript jwt by JWT_TOKEN_SECURE_STRING dont have problem add userId to request header
       request.validJWT = verified;
       // call next
@@ -30,7 +30,7 @@ export const authJwt = (
       //if   decript jwt by JWT_TOKEN_SECURE_STRING have problem send invalid user to client
       ResponseHandler(response, {
         statusCode: "Unauthorized",
-        error: { errorMessage: "Unauthorized User" },
+        error: { errorMessage: "Unauthorized User", error },
       });
     }
 };
