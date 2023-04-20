@@ -2,7 +2,6 @@ import { IsUUID, Length, IsDefined } from "class-validator";
 import { IUser, IUpdateUser } from "../../../Models/schemas";
 export class UserValidator implements IUser {
   @IsDefined()
-  @Length(10, 20)
   username!: string;
   @IsDefined()
   @Length(4, 20)
