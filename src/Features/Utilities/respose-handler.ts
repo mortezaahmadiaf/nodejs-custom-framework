@@ -9,10 +9,13 @@ import { Response } from "express";
 
 export interface IPayload {
   data?: any;
+  [key: string]: string | number | any;
 }
+
 export interface IError {
   errorMessage?: string | Array<string>;
   errors?: any;
+  [key: string]: string | number | any;
 }
 export interface IResponse {
   statusCode:

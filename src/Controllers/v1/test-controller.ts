@@ -55,12 +55,27 @@ export class TestController extends BasicController {
       },
     });
   }
-  decorateJWT(req: Request, response: Response, next: NextFunction) {
-    const data = jwtDecorator(req.body.token);
+  async decorateJWT(req: Request, response: Response, next: NextFunction) {
+    try {
+      const data = await jwtDecorator(req.body.token);
+      this.Response(response, {
+        statusCode: "OK",
+        payload: {
+          data,
+        },
+      });
+    } catch (errors) {
+      this.Response(response, {
+        statusCode: "BadRequest",
+        error: { errors },
+      });
+    }
+  }
+  checkJwt(req: Request, response: Response, next: NextFunction) {
     this.Response(response, {
       statusCode: "OK",
       payload: {
-        data,
+        message: "JWT is Ok",
       },
     });
   }

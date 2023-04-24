@@ -1,12 +1,12 @@
 import { BaseRoutes } from "../../Features/Utilities";
-import { TestController } from "../../Controllers/v1";
+import { TestController } from "../../Controllers";
 import { NextFunction, Response, Request } from "express";
 import { authJwt } from "../../Features/Middlewares";
-import { AccessPolicy } from "../../Features/Policies";
+
 class TestRoutes extends BaseRoutes {
   constructor() {
     super(TestController);
-    this.accessPolicy.get = authJwt;
+
     this.init();
   }
 
@@ -22,10 +22,18 @@ class TestRoutes extends BaseRoutes {
       .post((req: Request, res: Response, next: NextFunction) => {
         this.decorateJWT(req, res, next);
       });
+    this.router
+      .route("/jwt-check")
+      .get(authJwt, (req: Request, res: Response, next: NextFunction) => {
+        this.checkJwt(req, res, next);
+      });
   }
 
   private generateJWT = (req: Request, res: Response, next: NextFunction) => {
     this.controller.generateJWT(req, res, next);
+  };
+  private checkJwt = (req: Request, res: Response, next: NextFunction) => {
+    this.controller.checkJwt(req, res, next);
   };
   private decorateJWT = (req: Request, res: Response, next: NextFunction) => {
     this.controller.decorateJWT(req, res, next);
