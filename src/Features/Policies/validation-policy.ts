@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+
 export class ValidationPolicy {
   get = (request: Request, response: Response, nextFunction: NextFunction) => {
     nextFunction();
