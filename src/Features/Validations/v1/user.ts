@@ -1,25 +1,20 @@
-import {
-  validate,
-  validateOrReject,
-  Contains,
-  IsInt,
-  Length,
-  IsEmail,
-  IsFQDN,
-  IsDate,
-  Min,
-  Max,
-} from "class-validator";
-
+import { IsUUID, Length, IsDefined } from "class-validator";
+import { IUser, IUpdateUser } from "../../../Models/schemas";
 export class UserValidator implements IUser {
-  @Length(10, 20)
+  @IsDefined()
   username!: string;
-
-  @Length(10, 20)
+  @IsDefined()
+  @Length(4, 20)
   password!: string;
 }
 
-interface IUser {
-  username: string;
-  password: string;
+export class UserUpdateValidator implements IUpdateUser {
+  @Length(10, 20)
+  username!: string;
+
+  @Length(4, 20)
+  password!: string;
+  @IsDefined()
+  @IsUUID("4")
+  id!: string;
 }

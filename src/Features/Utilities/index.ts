@@ -1,4 +1,4 @@
-export * from "./basic-router";
+export * from "./basic-routes";
 export * from "./http-status-code";
 export * from "./respose-handler";
 export * from "./jwt";

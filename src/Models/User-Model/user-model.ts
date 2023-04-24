@@ -12,9 +12,9 @@ export class UserModel {
   };
   update = async (props: IUpdateUser) => {
     try {
-      const result = await this.user.update(props, {
-        where: { id: props.id },
-      });
+      const res = await this.user.findOne({ where: { id: props.id } });
+      const result = await res?.update(props);
+
       return result;
     } catch (error: any) {
       throw error?.errors ?? error; // return error;
