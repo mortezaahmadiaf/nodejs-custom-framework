@@ -7,7 +7,17 @@ export const jwtGenerator = (props: any): string => {
   return jwtToken;
 };
 
-export const jwtDecorator = (token: string): any => {
-  const data = jsonwebtoken.verify(token, process.env.JWT_SECRET_KEY ?? "");
-  return data;
+export const jwtDecorator = async (token: string): Promise<any> => {
+  try {
+    const data = await jsonwebtoken.verify(
+      token,
+      process.env.JWT_SECRET_KEY ?? "",
+      {
+        complete: true,
+      }
+    );
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };

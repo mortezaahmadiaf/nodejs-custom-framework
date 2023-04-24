@@ -14,7 +14,6 @@ export class UserController extends BasicController {
         payload: { data: res },
       });
     } catch (errors: any) {
-      console.log({ errors });
       this.Response(response, {
         statusCode: "BadRequest",
         error: { errors },

@@ -1,12 +1,9 @@
-import { BaseRouter } from "../../Features/Utilities";
-import { ProfileController } from "../../Controllers/v1";
-// import { NextFunction, Response, Request } from "express";
-import { authJwt } from "../../Features/Middlewares";
-import { AccessPolicy } from "../../Features/Policies";
-class ProfileRoute extends BaseRouter {
+import { BaseRoutes } from "../../Features/Utilities";
+import { ProfileController } from "../../Controllers";
+
+class ProfileRoute extends BaseRoutes {
   constructor() {
     super(ProfileController);
-    this.accessPolicy.get = authJwt;
     this.init();
   }
 
