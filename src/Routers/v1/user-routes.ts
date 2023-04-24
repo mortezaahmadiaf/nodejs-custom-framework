@@ -1,12 +1,12 @@
 import { BaseRoutes } from "../../Features/Utilities";
 import { UserController } from "../../Controllers";
-import { authJwt, validationMw } from "app/Features/Middlewares";
+import { authJwt, validationMw } from "../../Features/Middlewares";
 import {
   UserUpdateValidator,
   UserValidator,
   IdValidator,
-} from "app/Features/Validations";
-import { AccessPolicy, ValidationPolicy } from "app/Features/Policies";
+} from "../..//Features/Validations";
+import { AccessPolicy, ValidationPolicy } from "../../Features/Policies";
 class UserRoute extends BaseRoutes {
   constructor() {
     super(UserController);
