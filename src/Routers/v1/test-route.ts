@@ -27,6 +27,24 @@ class TestRoutes extends BaseRoutes {
       .get(authJwt, (req: Request, res: Response, next: NextFunction) => {
         this.checkJwt(req, res, next);
       });
+
+    this.router
+      .route("/jwt-check")
+      .get(authJwt, (req: Request, res: Response, next: NextFunction) => {
+        this.checkJwt(req, res, next);
+      });
+
+    this.router
+      .route("/redis/:key")
+      .get((req: Request, res: Response, next: NextFunction) => {
+        this.redisGetItem(req, res, next);
+      });
+
+    this.router
+      .route("/redis")
+      .post((req: Request, res: Response, next: NextFunction) => {
+        this.redisSetItem(req, res, next);
+      });
   }
 
   private generateJWT = (req: Request, res: Response, next: NextFunction) => {
@@ -37,6 +55,13 @@ class TestRoutes extends BaseRoutes {
   };
   private decorateJWT = (req: Request, res: Response, next: NextFunction) => {
     this.controller.decorateJWT(req, res, next);
+  };
+
+  private redisSetItem = (req: Request, res: Response, next: NextFunction) => {
+    this.controller.redisSetItem(req, res, next);
+  };
+  private redisGetItem = (req: Request, res: Response, next: NextFunction) => {
+    this.controller.redisGetItem(req, res, next);
   };
 }
 
