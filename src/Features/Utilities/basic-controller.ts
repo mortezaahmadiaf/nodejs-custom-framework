@@ -6,8 +6,9 @@ import {
   ResponseHandler,
 } from "./respose-handler";
 import { Response } from "express";
+import { Redis } from "./redis";
 
-export class BasicController {
+export class BasicController extends Redis {
   Response = (res: Response, props: IResponseHandler) =>
     ResponseHandler(res, props);
 }

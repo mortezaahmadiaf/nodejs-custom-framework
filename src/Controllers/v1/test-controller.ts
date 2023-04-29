@@ -3,6 +3,7 @@ import {
   jwtDecorator,
   jwtGenerator,
   BasicController,
+  genRandomString,
 } from "../../Features/Utilities";
 export class TestController extends BasicController {
   add(req: Request, response: Response, next: NextFunction) {
@@ -78,5 +79,33 @@ export class TestController extends BasicController {
         message: "JWT is Ok",
       },
     });
+  }
+
+  async redisGetItem(req: Request, response: Response, next: NextFunction) {
+    const { key } = req.params;
+    try {
+      const value = await this.redisGet(key);
+      this.Response(response, { statusCode: "OK", payload: { data: value } });
+    } catch (error) {
+      console.log(error);
+      this.Response(response, {
+        statusCode: "BadRequest",
+        error: { errors: error },
+      });
+    }
+  }
+  async redisSetItem(req: Request, response: Response, next: NextFunction) {
+    const props = req.body;
+    try {
+      const key = genRandomString();
+      await this.redisSet(key, props);
+      this.Response(response, { statusCode: "OK", payload: { data: { key } } });
+    } catch (error) {
+      console.log(error);
+      this.Response(response, {
+        statusCode: "BadRequest",
+        error: { errors: error },
+      });
+    }
   }
 }

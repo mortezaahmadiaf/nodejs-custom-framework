@@ -5,7 +5,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { Mysql } from "./Features/DB-Connections";
-import { User } from "./Models/User-Model/user-schema";
+
 dotenv.config();
 export class Application {
   private app: Express;
@@ -38,6 +38,7 @@ export class Application {
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(logger);
   };
+
   runServer = () => {
     this.app.listen(this.Port, () => {
       console.log(`"express server start on port ${this.Port}`);
