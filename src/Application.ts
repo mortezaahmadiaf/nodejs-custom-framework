@@ -6,7 +6,6 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { Mysql } from "./Features/DB-Connections";
 import amqplib from "amqplib/callback_api";
-import { main } from "./rabit";
 
 dotenv.config();
 export class Application {
