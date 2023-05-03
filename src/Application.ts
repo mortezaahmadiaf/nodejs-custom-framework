@@ -5,17 +5,18 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { Mysql } from "./Features/DB-Connections";
+import { RabbitMQConsume } from "./Features/Utilities/rabbit-mq";
 
 dotenv.config();
 export class Application {
   private app: Express;
   private Port: number = 4001;
-
   constructor() {
     this.app = express();
     this.database_connection();
     this.mioddelware();
     this.router();
+    this.rabbitMQlistening();
   }
   private router = () => {
     this.app.use("/test", TestRouter);
@@ -31,14 +32,18 @@ export class Application {
       console.error("mysql : Unable to connect to the database:", error);
     }
   };
-
+  async rabbitMQlistening() {
+    try {
+      const rabbit = new RabbitMQConsume();
+      await rabbit.consumeAll();
+    } catch (error) {}
+  }
   private mioddelware = () => {
     this.app.use(cors());
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(logger);
   };
-
   runServer = () => {
     this.app.listen(this.Port, () => {
       console.log(`"express server start on port ${this.Port}`);
