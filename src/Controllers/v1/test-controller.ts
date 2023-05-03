@@ -4,6 +4,7 @@ import {
   jwtGenerator,
   BasicController,
   genRandomString,
+  RabbitMQSend,
 } from "../../Features/Utilities";
 export class TestController extends BasicController {
   add(req: Request, response: Response, next: NextFunction) {
@@ -100,6 +101,21 @@ export class TestController extends BasicController {
       const key = genRandomString();
       await this.redisSet(key, props);
       this.Response(response, { statusCode: "OK", payload: { data: { key } } });
+    } catch (error) {
+      console.log(error);
+      this.Response(response, {
+        statusCode: "BadRequest",
+        error: { errors: error },
+      });
+    }
+  }
+
+  async rabbitmq(req: Request, response: Response, next: NextFunction) {
+    const props = req.body;
+    const rabbit = new RabbitMQSend();
+    try {
+      const res = await rabbit.sendTest(JSON.stringify(props));
+      this.Response(response, { statusCode: "OK", payload: { data: res } });
     } catch (error) {
       console.log(error);
       this.Response(response, {
