@@ -45,6 +45,11 @@ class TestRoutes extends BaseRoutes {
       .post((req: Request, res: Response, next: NextFunction) => {
         this.redisSetItem(req, res, next);
       });
+    this.router
+      .route("/rabbitmq")
+      .post((req: Request, res: Response, next: NextFunction) => {
+        this.rabbitmq(req, res, next);
+      });
   }
 
   private generateJWT = (req: Request, res: Response, next: NextFunction) => {
@@ -62,6 +67,10 @@ class TestRoutes extends BaseRoutes {
   };
   private redisGetItem = (req: Request, res: Response, next: NextFunction) => {
     this.controller.redisGetItem(req, res, next);
+  };
+
+  private rabbitmq = (req: Request, res: Response, next: NextFunction) => {
+    this.controller.rabbitmq(req, res, next);
   };
 }
 
