@@ -1,9 +1,11 @@
 import { UserModel } from "./user-model";
-import { IUser, IUpdateUser } from "../schemas";
+import { IUser, IUpdateUser, IUserI } from "../schemas";
 import { genRandomString, encription } from "../../Features/Utilities";
+
 export class UserManager {
   private userModel: UserModel = new UserModel();
-  create = async (props: IUser) => {
+
+  create = async (props: IUser): Promise<IUserI> => {
     try {
       const salt = genRandomString();
       const hashPass = encription(props.password, salt);
@@ -17,7 +19,8 @@ export class UserManager {
       throw error;
     }
   };
-  update = async (props: IUpdateUser) => {
+
+  update = async (props: IUpdateUser): Promise<IUserI | undefined> => {
     try {
       const salt = genRandomString();
       const hashPass = encription(props.password, salt);
@@ -29,34 +32,36 @@ export class UserManager {
       });
       return result;
     } catch (error) {
-      throw error; // return error;
+      throw error;
     }
   };
-  delete = async (id: string) => {
+
+  delete = async (id: string): Promise<number> => {
     try {
-      // await this.validation.idValidator(id);
       const result = await this.userModel.delete(id);
       return result;
     } catch (error) {
-      throw error; // return error;
+      throw error;
     }
   };
-  getById = async (id: string) => {
+
+  getById = async (id: string): Promise<IUserI | null> => {
     try {
-      // await this.validation.idValidator(id);
       const result = await this.userModel.getById(id);
       return result;
     } catch (error) {
-      throw error; // return error;
+      throw error;
     }
   };
-  getAll = async () => {
+
+  getAll = async (): Promise<Array<IUserI> | null> => {
     try {
       const result = await this.userModel.getAll();
       return result;
     } catch (error) {
-      throw error; // return error;
+      throw error;
     }
   };
-  patch = async () => {};
+
+  patch = async (): Promise<any> => {};
 }
