@@ -13,7 +13,17 @@ import {
   Response,
   Header,
 } from "tsoa";
-
+interface IGENjwt {
+  statusCode: string;
+  payload?: {
+    data?:
+      | any
+      | {
+          token?: string;
+          message?: string;
+        };
+  };
+}
 @Route("test")
 export class Test extends Controller {
   @Get("/")
@@ -37,15 +47,80 @@ export class Test extends Controller {
   public async testdelete(): Promise<{ test: string }> {
     return { test: "delete" };
   }
-  @Get("jwt")
-  public async jwt(): Promise<{ token: string }> {
-    return { token: "token" };
+  // @Get("jwt")
+  // public async jwt(): Promise<{ token: string }> {
+  //   return { token: "token" };
+  // }
+  // @Security("jwt", ["token"])
+  // @Get("check-jwt")
+  // public async checkJwt(
+  //   @Header("jwt") authorization: string
+  // ): Promise<{ info: string }> {
+  //   return { info: "token" };
+  // }
+  @Get("jwt-generate")
+  async jwtGenerate(): Promise<IGENjwt> {
+    return {
+      statusCode: "OK",
+      payload: {
+        data: {
+          message:
+            "send token to jwt-decorate with token in body with post method",
+          token: "toke",
+        },
+      },
+    };
   }
-  @Security("jwt", ["token"])
-  @Get("check-jwt")
-  public async checkJwt(
-    @Header("jwt") authorization: string
-  ): Promise<{ info: string }> {
-    return { info: "token" };
+
+  @Post("jwt-decorate")
+  async jwtDecorate(): Promise<IGENjwt> {
+    return {
+      statusCode: "OK",
+      payload: {
+        data: {
+          message: "token is ok",
+        },
+      },
+    };
+  }
+
+  @Get("jwt-check")
+  async jwtCheck(): Promise<IGENjwt> {
+    return {
+      statusCode: "OK",
+      payload: {
+        data: {
+          message: "token is ok",
+        },
+      },
+    };
+  }
+  @Get("/redis/{key}")
+  async getRedis(): Promise<IGENjwt> {
+    return {
+      statusCode: "OK",
+      payload: {
+        data: "redis data",
+      },
+    };
+  }
+  @Post("redis")
+  async PostRedis(): Promise<IGENjwt> {
+    return {
+      statusCode: "OK",
+      payload: {
+        data: { key: "key" },
+      },
+    };
+  }
+
+  @Post("rabbitmq")
+  async rabbitmq(): Promise<IGENjwt> {
+    return {
+      statusCode: "OK",
+      payload: {
+        data: "your data send",
+      },
+    };
   }
 }
