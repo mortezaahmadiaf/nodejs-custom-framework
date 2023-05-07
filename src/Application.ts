@@ -6,11 +6,13 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { Mysql } from "./Features/DB-Connections";
 import { RabbitMQConsume } from "./Features/Utilities/rabbit-mq";
+import swaggerUi from "swagger-ui-express";
+import * as swagger from "./Routers/Docs/swagger.json";
 
 dotenv.config();
 export class Application {
   private app: Express;
-  private Port: number = 4001;
+  private Port: number = 4000;
   constructor() {
     this.app = express();
     this.database_connection();
@@ -19,6 +21,7 @@ export class Application {
     this.rabbitMQlistening();
   }
   private router = () => {
+    this.app.use("/docs", swaggerUi.serve, swaggerUi.setup(swagger));
     this.app.use("/test", TestRouter);
     this.app.use("/user", UserRouter);
     this.app.use("/profile", ProfileRouter);
