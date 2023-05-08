@@ -13,17 +13,8 @@ import {
   Response,
   Header,
 } from "tsoa";
-interface IGENjwt {
-  statusCode: string;
-  payload?: {
-    data?:
-      | any
-      | {
-          token?: string;
-          message?: string;
-        };
-  };
-}
+import { IRecordOfAny, IGENjwt, IToken } from "../../../src/Models/schemas";
+
 @Route("test")
 export class Test extends Controller {
   @Get("/")
@@ -47,17 +38,7 @@ export class Test extends Controller {
   public async testdelete(): Promise<{ test: string }> {
     return { test: "delete" };
   }
-  // @Get("jwt")
-  // public async jwt(): Promise<{ token: string }> {
-  //   return { token: "token" };
-  // }
-  // @Security("jwt", ["token"])
-  // @Get("check-jwt")
-  // public async checkJwt(
-  //   @Header("jwt") authorization: string
-  // ): Promise<{ info: string }> {
-  //   return { info: "token" };
-  // }
+
   @Get("jwt-generate")
   async jwtGenerate(): Promise<IGENjwt> {
     return {
@@ -73,7 +54,7 @@ export class Test extends Controller {
   }
 
   @Post("jwt-decorate")
-  async jwtDecorate(): Promise<IGENjwt> {
+  async jwtDecorate(@Body() requestBody: IToken): Promise<IGENjwt> {
     return {
       statusCode: "OK",
       payload: {
@@ -84,8 +65,9 @@ export class Test extends Controller {
     };
   }
 
+  @Security("jwt", ["token"])
   @Get("jwt-check")
-  async jwtCheck(): Promise<IGENjwt> {
+  async jwtCheck(@Header("jwt") jwt: string): Promise<IGENjwt> {
     return {
       statusCode: "OK",
       payload: {
@@ -96,7 +78,7 @@ export class Test extends Controller {
     };
   }
   @Get("/redis/{key}")
-  async getRedis(): Promise<IGENjwt> {
+  async getRedis(@Path() key: string): Promise<IGENjwt> {
     return {
       statusCode: "OK",
       payload: {
@@ -105,7 +87,7 @@ export class Test extends Controller {
     };
   }
   @Post("redis")
-  async PostRedis(): Promise<IGENjwt> {
+  async PostRedis(@Body() requestBody: IRecordOfAny): Promise<IGENjwt> {
     return {
       statusCode: "OK",
       payload: {
@@ -115,7 +97,7 @@ export class Test extends Controller {
   }
 
   @Post("rabbitmq")
-  async rabbitmq(): Promise<IGENjwt> {
+  async rabbitmq(@Body() requestBody: IRecordOfAny): Promise<IGENjwt> {
     return {
       statusCode: "OK",
       payload: {
