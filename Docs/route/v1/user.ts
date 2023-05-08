@@ -1,4 +1,4 @@
-import { IUser, IUpdateUser, IUserI } from "../../../src/Models/schemas";
+import { IUser, IUpdateUser, IUserI, IId } from "../../../src/Models/schemas";
 import {
   Body,
   Controller,
@@ -18,31 +18,44 @@ import {
 
 @Route("user")
 export class UserManager extends Controller {
+  @Security("jwt", ["token"])
   @Get("/")
-  async getAll(): Promise<Array<IUserI> | null> {
+  async getAll(@Header("jwt") jwt: string): Promise<Array<IUserI> | null> {
     return [{ id: "", username: "" }];
   }
-
+  @Security("jwt", ["token"])
   @Get("id/{id}")
-  async getById(id: string): Promise<IUserI> {
+  async getById(@Header("jwt") jwt: string, id: string): Promise<IUserI> {
+    return { id: "", username: "" };
+  }
+  @Security("jwt", ["token"])
+  @Post("/")
+  async create(
+    @Header("jwt") jwt: string,
+    @Body() requestBody: IUser
+  ): Promise<IUserI> {
     return { id: "", username: "" };
   }
 
-  @Post("/")
-  async create(): Promise<IUserI> {
-    return { id: "", username: "" };
-  }
-  // props: IUpdateUser
+  @Security("jwt", ["token"])
   @Put("/")
-  async update(): Promise<IUserI> {
+  async update(
+    @Header("jwt") jwt: string,
+    @Body() requestBody: IUpdateUser
+  ): Promise<IUserI> {
     return { id: "", username: "" };
   }
-  // id: string
+
+  @Security("jwt", ["token"])
   @Delete("/")
-  async delete(): Promise<string> {
+  async delete(
+    @Header("jwt") jwt: string,
+    @Body() requestBody: IId
+  ): Promise<string> {
     return "ok";
   }
 
+  @Security("jwt", ["token"])
   @Patch("/")
-  async patch(): Promise<any> {}
+  async patch(@Header("jwt") jwt: string): Promise<any> {}
 }
