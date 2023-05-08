@@ -115,7 +115,6 @@ export class TestController extends BasicController {
       const res = await rabbit.sendTest(JSON.stringify(props));
       this.Response(response, { statusCode: "OK", payload: { data: res } });
     } catch (error) {
-      console.log(error);
       this.Response(response, {
         statusCode: "BadRequest",
         error: { errors: error },
