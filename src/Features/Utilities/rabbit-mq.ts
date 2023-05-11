@@ -6,17 +6,20 @@ class RabbitMQ {
   constructor() {}
   protected async connect(): Promise<Channel> {
     return new Promise((resolve, reject) => {
-      amqplib.connect("amqp://localhost:5672", (err, conn: Connection) => {
-        if (err) {
-          reject(err);
-        }
-        conn.createChannel((error, chan: Channel) => {
-          if (error) {
-            reject(error);
+      amqplib.connect(
+        process.env.RABBIT_MQ_ADDRESS || "amqp://localhost:5672",
+        (err, conn: Connection) => {
+          if (err) {
+            reject(err);
           }
-          resolve(chan);
-        });
-      });
+          conn.createChannel((error, chan: Channel) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(chan);
+          });
+        }
+      );
     });
   }
 }
