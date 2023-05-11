@@ -88,7 +88,6 @@ export class TestController extends BasicController {
       const value = await this.redisGet(key);
       this.Response(response, { statusCode: "OK", payload: { data: value } });
     } catch (error) {
-      console.log(error);
       this.Response(response, {
         statusCode: "BadRequest",
         error: { errors: error },
@@ -102,7 +101,6 @@ export class TestController extends BasicController {
       await this.redisSet(key, props);
       this.Response(response, { statusCode: "OK", payload: { data: { key } } });
     } catch (error) {
-      console.log(error);
       this.Response(response, {
         statusCode: "BadRequest",
         error: { errors: error },
@@ -117,7 +115,6 @@ export class TestController extends BasicController {
       const res = await rabbit.sendTest(JSON.stringify(props));
       this.Response(response, { statusCode: "OK", payload: { data: res } });
     } catch (error) {
-      console.log(error);
       this.Response(response, {
         statusCode: "BadRequest",
         error: { errors: error },

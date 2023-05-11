@@ -28,18 +28,18 @@ export class Application {
   };
 
   private database_connection = async () => {
-    try {
-      await Mysql.authenticate();
-      console.log("mysql : Connection has been established successfully.");
-    } catch (error) {
-      console.error("mysql : Unable to connect to the database:", error);
-    }
+    // try {
+    //   await Mysql.authenticate();
+    //   console.log("mysql : Connection has been established successfully.");
+    // } catch (error) {
+    //   console.error("mysql : Unable to connect to the database:", error);
+    // }
   };
   async rabbitMQlistening() {
-    try {
-      const rabbit = new RabbitMQConsume();
-      await rabbit.consumeAll();
-    } catch (error) {}
+    // try {
+    //   const rabbit = new RabbitMQConsume();
+    //   await rabbit.consumeAll();
+    // } catch (error) {}
   }
   private mioddelware = () => {
     this.app.use(cors());
@@ -49,7 +49,10 @@ export class Application {
   };
   runServer = () => {
     this.app.listen(this.Port, () => {
-      console.log(`"express server start on port ${this.Port}`);
+      console.log(`express server start on port ${this.Port}`);
+      console.log(
+        `if you want to use all apis please uncomment line in src/Application`
+      );
     });
   };
 }
