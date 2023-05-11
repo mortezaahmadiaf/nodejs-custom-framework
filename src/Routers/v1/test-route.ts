@@ -27,13 +27,6 @@ class TestRoutes extends BaseRoutes {
       .get(authJwt, (req: Request, res: Response, next: NextFunction) => {
         this.checkJwt(req, res, next);
       });
-
-    this.router
-      .route("/jwt-check")
-      .get(authJwt, (req: Request, res: Response, next: NextFunction) => {
-        this.checkJwt(req, res, next);
-      });
-
     this.router
       .route("/redis/:key")
       .get((req: Request, res: Response, next: NextFunction) => {
