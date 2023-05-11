@@ -35,11 +35,11 @@ export class Redis {
       throw error;
     }
   }
-  async redisSet(key: string, props: any, ttl: number = 60 * 1000) {
+  async redisSet(key: string, props: any, ttl: number = 60) {
     try {
       await this.connect();
       const value = await this.redis?.set(key, JSON.stringify(props));
-      await this.redis?.expire(key, 60);
+      await this.redis?.expire(key, ttl);
       await this.disconnect();
       return value;
     } catch (error) {

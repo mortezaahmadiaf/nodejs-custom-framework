@@ -1,8 +1,8 @@
 import {
-  IUser,
-  IUpdateUser,
-  IUserI,
+  IId,
   IProfileI,
+  IProfile,
+  IUpdateProfile,
 } from "../../../src/Models/schemas";
 import {
   Body,
@@ -34,17 +34,17 @@ export class ProfileManager extends Controller {
   }
 
   @Post("/")
-  async create(): Promise<IProfileI> {
+  async create(@Body() requestBody: IProfile): Promise<IProfileI> {
     return { id: "", firstName: "", UserId: "", lastName: "" };
   }
   // props: IUpdateUser
   @Put("/")
-  async update(): Promise<IProfileI> {
+  async update(@Body() requestBody: IUpdateProfile): Promise<IProfileI> {
     return { id: "", firstName: "", UserId: "", lastName: "" };
   }
   // id: string
   @Delete("/")
-  async delete(): Promise<string> {
+  async delete(@Body() requestBody: IId): Promise<string> {
     return "ok";
   }
 
