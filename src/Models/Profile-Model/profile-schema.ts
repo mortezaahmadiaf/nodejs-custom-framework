@@ -86,6 +86,13 @@ export interface IProfile {
   firstName: string;
   lastName?: string;
 }
+
+export interface IProfileI {
+  id: string;
+  UserId: string;
+  firstName: string;
+  lastName?: string;
+}
 export interface IUpdateProfile {
   id: string;
   firstName: string;
