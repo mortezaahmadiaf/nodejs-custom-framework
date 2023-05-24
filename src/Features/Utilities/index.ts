@@ -6,3 +6,4 @@ export * from "./password-encription";
 export * from "./basic-controller";
 export * from "./redis";
 export * from "./rabbit-mq";
+export * from "./make-directory";
